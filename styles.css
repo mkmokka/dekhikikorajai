@@ -1,0 +1,17 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+}
+
+#gameCanvas {
+  border: 2px solid #333;
+  background: #f4f4f4;
+  margin-top: 20px;
+}
+
+select, button, input {
+  margin: 10px;
+  padding: 5px 10px;
+  font-size: 16px;
+}

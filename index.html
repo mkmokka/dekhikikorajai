@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Firebase Multiplayer Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+
+  <h1>Welcome to My Firebase Multiplayer Game</h1>
+
+  <!-- Login/Register Section -->
+  <div id="auth-section">
+    <input type="email" id="regEmail" placeholder="Enter email to register" />
+    <button onclick="registerWithEmail()">Register with Email Link</button>
+    <br /><br />
+    <input type="email" id="logEmail" placeholder="Enter email to login" />
+    <input type="password" id="logPass" placeholder="Enter password" />
+    <button onclick="loginWithPassword()">Login</button>
+  </div>
+
+  <!-- Avatar Select & Join Room -->
+  <div id="join-section" style="display:none;">
+    <h2>Select Your Avatar and Join Room</h2>
+    <select id="avatarSelect">
+      <!-- Male Avatars -->
+      <option value="https://randomuser.me/api/portraits/men/10.jpg">Male 1</option>
+      <option value="https://randomuser.me/api/portraits/men/20.jpg">Male 2</option>
+      <option value="https://randomuser.me/api/portraits/men/30.jpg">Male 3</option>
+      <option value="https://randomuser.me/api/portraits/men/40.jpg">Male 4</option>
+      <option value="https://randomuser.me/api/portraits/men/50.jpg">Male 5</option>
+
+      <!-- Female Avatars -->
+      <option value="https://randomuser.me/api/portraits/women/10.jpg">Female 1</option>
+      <option value="https://randomuser.me/api/portraits/women/20.jpg">Female 2</option>
+      <option value="https://randomuser.me/api/portraits/women/30.jpg">Female 3</option>
+      <option value="https://randomuser.me/api/portraits/women/40.jpg">Female 4</option>
+      <option value="https://randomuser.me/api/portraits/women/50.jpg">Female 5</option>
+    </select>
+    <br>
+    <img id="avatarPreview" src="" alt="Preview" width="100" style="display:none; margin:10px;">
+    <br>
+    <button onclick="joinRoom('room1', document.getElementById('avatarSelect').value)">
+      Join Room
+    </button>
+  </div>
+
+  <script type="module">
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        document.getElementById('auth-section').style.display = 'none';
+        document.getElementById('join-section').style.display = 'block';
+      } else {
+        document.getElementById('auth-section').style.display = 'block';
+        document.getElementById('join-section').style.display = 'none';
+      }
+    });
+
+    // Avatar preview
+    const select = document.getElementById("avatarSelect");
+    const preview = document.getElementById("avatarPreview");
+    select.addEventListener("change", () => {
+      preview.src = select.value;
+      preview.style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
